@@ -1,0 +1,7 @@
+adneom_series:
+    resource: "@AdneomSeriesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

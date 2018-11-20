@@ -1,0 +1,3 @@
+adneom_series_homepage:
+    path:     /
+    defaults: { _controller: AdneomSeriesBundle:Default:index }
