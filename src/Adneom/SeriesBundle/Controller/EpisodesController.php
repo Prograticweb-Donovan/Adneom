@@ -3,10 +3,11 @@
 namespace Adneom\SeriesBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController extends Controller
+class EpisodesController extends Controller
 {
-    public function indexAction()
+    public function indexAction($id)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'http://adneomapisubject.herokuapp.com/blackmirror');
@@ -15,18 +16,14 @@ class DefaultController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);
         $datas = json_decode($result);
-        $episodes = $datas->resources->_embedded->episodes;
-        $serie = array(
-            'name'      => $datas->resources->name,
-            'summary'   => $datas->resources->summary,
-            'language'  => $datas->resources->language,
-            'genres'    => $datas->resources->genres,
-            'image'     => $datas->resources->image->medium
-        );
+        $episode = $datas->resources->_embedded->episodes[array_search($id, array_column($datas->resources->_embedded->episodes, 'id'))];
+
         /*
             var_dump($datas->resources);
             die();
         /*/
-        return $this->render('AdneomSeriesBundle:Default:index.html.twig', array('serie' => $serie, 'episodes' => $episodes));
+        
+        $content = $this->get('templating')->render('AdneomSeriesBundle:Episodes:index.html.twig', array('episode' => $episode));
+        return new Response($content);
     }
 }

@@ -1,3 +1,10 @@
 adneom_series_homepage:
     path:     /
     defaults: { _controller: AdneomSeriesBundle:Default:index }
+
+adneom_episodes_view:
+    path:   /episode/{id}
+    defaults:
+        _controller : AdneomSeriesBundle:Episodes:index
+    requirements:
+        id: \d+

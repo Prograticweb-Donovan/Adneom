@@ -1,1 +1,18 @@
-Hello World!
+{% extends "::base.html.twig" %}
+
+{% block body %}
+
+  <h2>{{ serie.name }}</h2>
+
+  <img src="{{ serie.image }}" />
+  
+  {{ serie.summary|raw }}
+  
+  <h3>Episodes</h3>
+  <ul>{% for episode in episodes %}
+      <li><a href="{{ path('adneom_episodes_view', {'id':episode.id})}}">{{episode.name}}</a></li>
+        {% endfor %}
+    </ul> 
+  </i><br>
+
+{% endblock %}
